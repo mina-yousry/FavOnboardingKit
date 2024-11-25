@@ -127,4 +127,20 @@ class TransitionView: UIView {
             make.height.equalTo(stackView.snp.height).multipliedBy(0.8)
         }
     }
+    
+    func handleTap(direction: Direction) {
+        switch direction {
+        case .left:
+            barViews[index].reset()
+            if barViews.indices.contains(index - 1) {
+                barViews[index - 1].reset()
+            }
+            index -= 2
+        case .right:
+            barViews[index].complete()
+        }
+        timer?.cancel()
+        timer = nil
+        start()
+    }
 }
