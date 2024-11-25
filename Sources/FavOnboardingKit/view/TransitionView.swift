@@ -14,6 +14,9 @@ class TransitionView: UIView {
     private let barColor: UIColor
     private var timer: DispatchSourceTimer?
     private var index: Int = -1
+    var slideIndex: Int {
+        return index
+    }
     
     private lazy var imageView: UIImageView = {
         let image = UIImageView()

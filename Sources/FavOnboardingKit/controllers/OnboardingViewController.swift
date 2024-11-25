@@ -8,6 +8,10 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
+    
+    var nextButtonDidTap: ((Int)->Void)?
+    var getStartedButtonDidTap: (()->Void)?
+    
     private let slides: [Slide]
     private let tintColor: UIColor
     
@@ -18,12 +22,11 @@ class OnboardingViewController: UIViewController {
     
     private lazy var buttonContainerView: ButtonContainerView = {
         let view = ButtonContainerView(viewTintColor: tintColor)
-        view.nextButtonDidTapped = {
-            
+        view.nextButtonDidTapped = { [weak self] in
+            self?.nextButtonDidTap?(self?.transitionView.slideIndex ?? 0)
+            self?.transitionView.handleTap(direction: .right)
         }
-        view.getStartedButtonDidTapped = {
-            
-        }
+        view.getStartedButtonDidTapped = getStartedButtonDidTap
         return view
     }()
     
@@ -46,6 +49,10 @@ class OnboardingViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         transitionView.start()
+    }
+    
+    func stopAnimation() {
+        transitionView.stop()
     }
     
     override func viewDidLoad() {

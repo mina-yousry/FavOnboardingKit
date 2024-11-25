@@ -73,6 +73,6 @@ class ButtonContainerView: UIView {
     }
     
     @objc private func getStartedButtonTapped() {
-        nextButtonDidTapped?()
+        getStartedButtonDidTapped?()
     }
 }
